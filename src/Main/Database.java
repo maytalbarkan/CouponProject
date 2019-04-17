@@ -8,13 +8,11 @@ import java.sql.Statement;
 
 
 	public class Database {
-		
 		private static String DBUrl = "jdbc:derby://localhost:5555/sample;create=true";
 		private static String DriverData = "org.apache.derby.jdbc.ClientDriver";
 		private static Connection connection;
 
 		
-
 		public static String getDBUrl() {
 			return DBUrl;
 		}

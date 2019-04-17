@@ -12,7 +12,6 @@ import Main.Database;
 
 public interface CouponDao {
 
-
 	void insertCoupon(Coupon coupon) throws Exception;
 	
 	void removeCoupon(Coupon coupon) throws Exception;

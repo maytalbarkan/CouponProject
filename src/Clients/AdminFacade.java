@@ -78,7 +78,6 @@ public class AdminFacade implements Client {
 
 	}
 	
-	
 	public void removeCompany(Company company) throws Exception {
 		
 		CompanyFacade companyFacade = new CompanyFacade();

@@ -2,7 +2,6 @@ package Clients;
 /**
  *this interface regulate the login methods-how to lgin the system and the client types of the system
  */
-
 public interface Client 
 {
 	/**

@@ -285,7 +285,6 @@ public class CompanyDBDAO implements CompanyDao {
 		@SuppressWarnings("finally")
 		@Override
 		public boolean ifCompanyNameExists(String name) throws Exception {
-			
 			Connection con;
 			
 			// Open a connection from the connection pool class

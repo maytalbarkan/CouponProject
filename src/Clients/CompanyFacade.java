@@ -56,7 +56,6 @@ public class CompanyFacade implements Client {
 			}
 			
 			boolean bool = coupCompanyDao.ifCouponNameExists(coupon);
-			
 			if (bool==false) {
 				
 				coupCompanyDao.insertCoupon(coupon);

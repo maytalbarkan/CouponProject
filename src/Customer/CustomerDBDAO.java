@@ -232,7 +232,6 @@ public class CustomerDBDAO implements CustomerDao {
 		@SuppressWarnings("finally")
 		public boolean ifCustomerNameExists(Customer cust) throws Exception {
 			Connection con;
-			
 			// Open a connection from the connection pool class
 			try {
 				con = ConnectionPool.getInstance().getConnection();

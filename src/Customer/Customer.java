@@ -7,7 +7,6 @@ package Customer;
  * @author Maytal & Maayan
 
  *
-
  */
 
 public class Customer

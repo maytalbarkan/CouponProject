@@ -28,7 +28,6 @@ public class Company_CouponDBDao implements Company_CouponDao {
 	public void insertCompany_Coupon(Company company, Coupon coupon) throws Exception {
 
 		Connection con;
-		
 		// Open a connection from the connection pool class
 		try {
 			con = ConnectionPool.getInstance().getConnection();

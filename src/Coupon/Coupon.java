@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Coupon 
 {
-	
 		private long ID;
 		private String title;
 		private Date start_date;

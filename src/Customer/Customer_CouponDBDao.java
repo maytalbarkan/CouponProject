@@ -24,7 +24,6 @@ public class Customer_CouponDBDao implements Customer_CouponDao {
 	private Company_CouponDBDao company_CouponDBDao=new Company_CouponDBDao();
 	
 	private static Connection con;
-
 	@Override
 	public void insertCustomer_Coupon(long cutomerid, long couponid) throws Exception {
 

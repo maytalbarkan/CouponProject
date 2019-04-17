@@ -831,8 +831,7 @@ public class CouponDBDAO implements CouponDao {
 				if (title.equals(rs.getString(2))) {
 					bool=true;
 					System.out.println("The COUPON is existed chose difrent TITLE");;
-
-				
+	
 			}}} catch (SQLException e) {
 			System.out.println(e);
 			} finally {// finally block used to close resources

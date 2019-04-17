@@ -12,7 +12,6 @@ public class Utils {
 		Date date = java.sql.Date.valueOf(localDate);
 		return date;
 	}
-
 	public static Date getExpiredDate() {
 		LocalDate localDate = LocalDate.now();
 		localDate = localDate.plusMonths(1);

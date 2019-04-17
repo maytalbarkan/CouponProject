@@ -14,7 +14,6 @@ import Threads.ThreadsDailyExpiredCoupons;
 public class CouponSystem {
 	
 	private static CouponSystem instance;
-
 	private static ThreadsDailyExpiredCoupons DailyTask;
 	private	static Thread thread;
 

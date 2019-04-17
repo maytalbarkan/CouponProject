@@ -92,8 +92,7 @@ public class Test {
 //		adminFacade.insertCustomer(customer6);
 //		adminFacade.insertCustomer(customer7);
 //		adminFacade.insertCustomer(customer8);		
-		adminFacade.insertCustomer(customer9);	
-		
+//		adminFacade.insertCustomer(customer9);	
 		
 //System.out.println(	customerDBDAO.ifCustomerNameExists(customer1));
 	

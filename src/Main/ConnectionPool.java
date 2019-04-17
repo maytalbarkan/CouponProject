@@ -15,7 +15,6 @@ import Exception.CouponException;
  * 
  * this class controls and manage all the connections, because of that this
  * class is a singleton
- * 
  * maxConnection int: the number of connections and its final number
  * 
  */
