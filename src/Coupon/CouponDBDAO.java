@@ -808,7 +808,7 @@ public class CouponDBDAO implements CouponDao {
 
 		@Override
 	@SuppressWarnings("finally")
-	public boolean ifCouponNameExists(String name) throws Exception {
+	public boolean ifCouponNameExists(Coupon coupon) throws Exception {
 			
 		Connection con;
 		
@@ -818,22 +818,22 @@ public class CouponDBDAO implements CouponDao {
 		} catch (Exception e) {
 			throw new Exception("The Connection is faild");
 		}
+		
 		// Define the Execute query
-		String sql = "SELECT ID FROM COUPON WHERE TITLE = ? ";
+		String sql = "SELECT * FROM COUPON ";
 		PreparedStatement pstmt = null;
 		pstmt = con.prepareStatement(sql);
-			try {
-
-				pstmt.setString(1, name);
-
-				ResultSet rs = pstmt.executeQuery();
-
-				if (rs.next()) {
-
+		ResultSet rs = pstmt.executeQuery();
+		String title = coupon.getTitle();
+		boolean bool=false;
+		try {
+			while (rs.next()) {	
+				if (title.equals(rs.getString(2))) {
+					bool=true;
 					System.out.println("The COUPON is existed chose difrent TITLE");;
 
-				}
-			} catch (SQLException e) {
+				
+			}}} catch (SQLException e) {
 			System.out.println(e);
 			} finally {// finally block used to close resources
 				try {
@@ -851,7 +851,7 @@ public class CouponDBDAO implements CouponDao {
 					throw new Exception("The close connection action faild");
 				}
 		
-			return false;
+			return bool;
 
 	
 

@@ -236,49 +236,50 @@ public class CompanyDBDAO implements CompanyDao {
 		//method that print all company's list
 		@SuppressWarnings("finally")
 		public Collection<Company> getAllCompanys() throws Exception {
-			
-			Connection con;
-			
-			// Open a connection from the connection pool class
-			try {
-				con = ConnectionPool.getInstance().getConnection();
-			} catch (Exception e) {
-				throw new Exception("The Connection is faild");
+				
+				Connection con;
+				
+				// Open a connection from the connection pool class
+				try {
+					con = ConnectionPool.getInstance().getConnection();
+				} catch (Exception e) {
+					throw new Exception("The Connection is faild");
+				}
+				// Define the Execute query
+				String sql = "SELECT * FROM Company";
+				PreparedStatement pstmt = null;
+				pstmt = con.prepareStatement(sql);
+				List <Company> companyList = new ArrayList<>();
+				
+				try {
+				
+					ResultSet resultSet = pstmt.executeQuery();
+					while (resultSet.next()) {
+						Company company = extractCompanyFromResultSet1(resultSet);
+						companyList.add(company);
+					}
+				} catch (SQLException e) {
+					System.out.println(e);
+					throw new Exception("cannot get Product data");
+				} finally {// finally block used to close resources
+					try {
+						if (pstmt != null) {
+							ConnectionPool.getInstance().returnConnection(con);
+						}
+					} catch (Exception e) {
+						throw new Exception("The close connection action faild");
+					}
+					try {
+						if (con != null) {
+							ConnectionPool.getInstance().returnConnection(con);
+						}
+					} catch (Exception e) {
+						throw new Exception("The close connection action faild");
+					}
+				return companyList;
 			}
-			// Define the Execute query
-			String sql = "SELECT * FROM Company";
-			PreparedStatement pstmt = null;
-			pstmt = con.prepareStatement(sql);
-			List <Company> companyList = new ArrayList<>();
-			
-			try {
-			
-				ResultSet resultSet = pstmt.executeQuery();
-				while (resultSet.next()) {
-					Company company = extractCompanyFromResultSet1(resultSet);
-					companyList.add(company);
-				}
-			} catch (SQLException e) {
-				System.out.println(e);
-				throw new Exception("cannot get Product data");
-			} finally {// finally block used to close resources
-				try {
-					if (pstmt != null) {
-						ConnectionPool.getInstance().returnConnection(con);
-					}
-				} catch (Exception e) {
-					throw new Exception("The close connection action faild");
-				}
-				try {
-					if (con != null) {
-						ConnectionPool.getInstance().returnConnection(con);
-					}
-				} catch (Exception e) {
-					throw new Exception("The close connection action faild");
-				}
-			return companyList;
-		}
-		}
+			}
+		
 		
 
 		@SuppressWarnings("finally")

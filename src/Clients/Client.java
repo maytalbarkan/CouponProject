@@ -11,6 +11,6 @@ public interface Client
 	
 	ClientType clientType = null;
 	
-	public void login (String user, String password, ClientType clienttype);
+	public Client login (String user, String password, ClientType clienttype);
 
 }

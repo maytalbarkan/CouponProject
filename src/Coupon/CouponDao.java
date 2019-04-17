@@ -19,7 +19,7 @@ public interface CouponDao {
 	
 	void updateCoupon(Coupon coupon) throws Exception;
 
-	public boolean ifCouponNameExists(String name) throws Exception;
+	public boolean ifCouponNameExists(Coupon coupon) throws Exception;
 	
 	Coupon whatCouponid(Coupon coupon) throws Exception ;
 	

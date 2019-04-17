@@ -230,7 +230,7 @@ public class CustomerDBDAO implements CustomerDao {
 		
 
 		@SuppressWarnings("finally")
-		public boolean ifCustomerNameExists(String cust) throws Exception {
+		public boolean ifCustomerNameExists(Customer cust) throws Exception {
 			Connection con;
 			
 			// Open a connection from the connection pool class
@@ -240,21 +240,20 @@ public class CustomerDBDAO implements CustomerDao {
 				throw new Exception("The Connection is faild");
 			}
 			// Define the Execute query
-			String sql = "SELECT ID FROM Customer WHERE custName = ? ";
+			
+			String sql = "SELECT * FROM Customer ";
 			PreparedStatement pstmt = null;
 			pstmt = con.prepareStatement(sql);
-						
-				try {
-				pstmt.setString(1, cust);
-
-				ResultSet rs = pstmt.executeQuery();
-
-					if (rs.next()) {
-
-						System.out.println("The customer is existed chose difrent customer");;
-
+			ResultSet rs = pstmt.executeQuery();
+			String name = cust.getCustName();
+			boolean bool=false;
+			try {
+				while (rs.next()) {	
+				
+					if (name.equals(rs.getString(2))) {
+						bool=true;
 					}
-				}
+				}}
 				catch (SQLException e) {
 				System.out.println(e);
 				}
@@ -275,7 +274,7 @@ public class CustomerDBDAO implements CustomerDao {
 					}
 
 			
-				return false;}
+				return bool;}
 			}
 		
 		
@@ -388,7 +387,7 @@ public class CustomerDBDAO implements CustomerDao {
 			}}
 		
 		//method that remove all purchased customer coupons
-		public void removeAllPurchasedCustomerCoupons(long id) throws Exception {
+		public void removePurchasedCustomerCoupons(long id) throws Exception {
 			
 			Connection con;
 			
@@ -399,7 +398,7 @@ public class CustomerDBDAO implements CustomerDao {
 				throw new Exception("The Connection is faild");
 			}
 			// Define the Execute query
-			String remove = "DELETE FROM Customery_Coupon WHERE ustomer_ID=?";
+			String remove = "DELETE FROM Customer_Coupon WHERE customer_ID=?";
 			PreparedStatement preparedStatement = null;
 			preparedStatement = con.prepareStatement(remove);			
 			

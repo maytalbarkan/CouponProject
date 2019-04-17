@@ -24,7 +24,7 @@ import java.util.Set;
 		  Customer getCustomer(Customer customer) throws Exception;
 			//* method that can retrieve all customers from the DB 
 	
-			 boolean ifCustomerNameExists(String custName) throws Exception;
+		  public boolean ifCustomerNameExists(Customer cust) throws Exception;
 			//*method that check if customer exists
 			
 			 Customer extractCustomerFromResultSet1(ResultSet result) throws Exception;
@@ -33,5 +33,5 @@ import java.util.Set;
 			 
 			 void removeCustomerById(long id) throws Exception;
 			 
-			 void removeAllPurchasedCustomerCoupons(long id) throws Exception;
+			 void removePurchasedCustomerCoupons(long id) throws Exception;
 }

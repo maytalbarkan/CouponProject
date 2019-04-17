@@ -85,17 +85,11 @@ public class ConnectionPool {
 	public static ConnectionPool getInstance() throws CouponException {
 
 		if (instance == null) {
-
 			try {
-
 				instance = new ConnectionPool();
 
 			} catch (SQLException e) {
-
-				// TODO Auto-generated catch block
-
 				e.printStackTrace();
-
 			}
 
 		}
