@@ -19,7 +19,7 @@ import Customer.Customer_CouponDBDao;
 import Main.Utils;
 
 
-public class CompanyFacade {
+public class CompanyFacade implements Client {
 
 	private ClientType clientType = ClientType.COMPANY;
 	private CouponDBDAO coupCompanyDao = new CouponDBDAO();
@@ -55,9 +55,8 @@ public class CompanyFacade {
 				+ "," + coupon.getEnd_date());
 			}
 			
-			String name = coupon.getTitle();
-			
-			if (!coupCompanyDao.ifCouponNameExists(name)) {
+			boolean bool = coupCompanyDao.ifCouponNameExists(coupon);
+			if (bool==false) {
 				
 				coupCompanyDao.insertCoupon(coupon);
 				long max = company_CouponDBDao.getMaxCouponId();
@@ -127,14 +126,18 @@ public class CompanyFacade {
 	
 	List<Coupon> coupons = getAllCompanyCoupon(company);
 	List<Coupon> couponByType = new ArrayList<Coupon>();
-	
+	try {
 	for (Coupon coupon : coupons) {
-
+		
 		if (coupon.getType().equals(type)) {
+			
 			couponByType.add(coupon);
-		}
+		}}}
+	
+	catch (Exception e) {
+		System.out.println(e);
 	}
-	System.out.println("hello@ " +couponByType);
+	
 	return couponByType;
 	}
 	
@@ -156,14 +159,25 @@ public class CompanyFacade {
 		
 		List<Coupon> coupons = getAllCompanyCoupon(company);
 		List<Coupon> couponByDate = new ArrayList<Coupon>();
+		try {
 		for (Coupon coupon : coupons) {
 			
-				if (coupon.getEnd_date().equals(date) || coupon.getEnd_date().before(date)) {
+			if (coupon.getEnd_date().equals(date) || coupon.getEnd_date().before(date)) {
 					couponByDate.add(coupon);
 				}
-			}
-		System.out.println("hello@ " +couponByDate);
+			}}
+		catch (Exception e) {
+		System.out.println(e);
+		}
+		
 		return couponByDate;
 		}
+
+	@Override
+	public Client login(String user, String password, ClientType clienttype) {
+		return null;
+	
+		
+	}
 	}
 

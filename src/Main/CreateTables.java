@@ -5,9 +5,7 @@ import Company.CompanyDBDAO;
 
 public class CreateTables {
 
-	
 
-	
 	private Database database = new Database();
 
 	

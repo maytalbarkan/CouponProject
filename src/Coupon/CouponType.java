@@ -8,5 +8,4 @@ public enum CouponType {
 	Sports,
 	Camping,
 	Traveling
-
 }

@@ -5,7 +5,6 @@ import java.util.Date;
 
 public class ExpiredCoupon {
 
-		
 			private long ID;
 			private String title;
 			private Date start_date;

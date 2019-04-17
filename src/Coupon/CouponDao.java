@@ -12,14 +12,13 @@ import Main.Database;
 
 public interface CouponDao {
 
-
 	void insertCoupon(Coupon coupon) throws Exception;
 	
 	void removeCoupon(Coupon coupon) throws Exception;
 	
 	void updateCoupon(Coupon coupon) throws Exception;
 
-	public boolean ifCouponNameExists(String name) throws Exception;
+	public boolean ifCouponNameExists(Coupon coupon) throws Exception;
 	
 	Coupon whatCouponid(Coupon coupon) throws Exception ;
 	

@@ -28,7 +28,6 @@ public class Company_CouponDBDao implements Company_CouponDao {
 	public void insertCompany_Coupon(Company company, Coupon coupon) throws Exception {
 
 		Connection con;
-		
 		// Open a connection from the connection pool class
 		try {
 			con = ConnectionPool.getInstance().getConnection();
@@ -195,16 +194,16 @@ public class Company_CouponDBDao implements Company_CouponDao {
 		String sql = "SELECT MAX(ID) FROM COUPON";
 		PreparedStatement pstmt = null;
 		pstmt = con.prepareStatement(sql);
-
+		long result = 0;
 		try (Statement pstt = con.createStatement()){
 
 			ResultSet rs = pstt.executeQuery(sql);
 			if (rs.next())
 			{
 				String max = rs.getString(1);
-				long result = Long.parseLong(max);
+				result = Long.parseLong(max);
 				System.out.println(max);
-				return result;
+				
 			}
 		}catch (SQLException e) {
 			throw new Exception("Get max ID from coupon table failed");
@@ -224,7 +223,7 @@ public class Company_CouponDBDao implements Company_CouponDao {
 				throw new Exception("The close connection action faild");
 			}
 
-		return -1;
+			return result;
 	}}
 
 	

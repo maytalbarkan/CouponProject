@@ -7,7 +7,6 @@ import Customer.Customer;
 
 public interface Customer_CouponDao {
 
-	
 	void insertCustomer_Coupon(long cutomerid, long couponid) throws Exception ;
 
 	public void removebyCustomerCoupon(Customer customer) throws Exception;

@@ -1,5 +1,4 @@
 package Clients;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -16,7 +15,7 @@ import Exception.CouponException;
 import Main.ConnectionPool;
 import Main.Utils;
 
-public class CustomerFacade {
+public class CustomerFacade implements Client {
 
 	private CustomerDBDAO customerDBDAO = new CustomerDBDAO(); 
 	private Customer customer;
@@ -101,21 +100,18 @@ public class CustomerFacade {
 			}
 			try {
 			List<Coupon> coupons = getAllPurchasedCouponsByCustomer(customer3);
-
-			
-
+		
 			for (Coupon coupon : coupons) {
 
 				if (coupon.getType().equals(type)) {
 
 					couponByType.add(coupon);
 				}
-			//	System.out.println("@" +couponByType);
 			}
 		} catch (Exception e) {
 
-			throw new Exception("update customer failed");}
-			
+			System.out.print(e);
+		}
 		finally { // finally block used to close resources
 
 			try {
@@ -160,6 +156,12 @@ public class CustomerFacade {
 			
 			return couponByPrice;
 
+		}
+
+		@Override
+		public Client login(String user, String password, ClientType clienttype) {
+		
+			return null;
 		}
 }
 		

@@ -3,8 +3,15 @@ package Clients;
 import java.nio.file.WatchService;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.function.LongFunction;
+import java.util.jar.Attributes.Name;
+
+import javax.swing.colorchooser.ColorChooserComponentFactory;
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import Company.Company;
 import Company.CompanyDBDAO;
@@ -45,43 +52,47 @@ public class AdminFacade implements Client {
 	
 	//****************************************************************************************************
 	//COMPANY METHODS
-	
-	
-	
-		public void insertCompany(Company company) throws Exception {
+	public void insertCompany(Company company) throws Exception {
 
-			if (company != null) {
+		if (company != null) {
 
-				String companyName = company.getComp_Name();
+			String companyName = company.getComp_Name();
 
-				if (companyName != null) {
+			if (companyName != null) {
 
-					if (company.getPassword() != null) {
+				if ((company.getPassword() != null) && (company.getEmail() != null) && (!companyDBDAO.ifCompanyNameExists(companyName))) {
 
-						if (company.getEmail() != null) {
-
-							if (!companyDBDAO.ifCompanyNameExists(companyName)) {
-							try {
-									companyDBDAO.insertCompany(company);
-									System.out.println("the company created");
-									}
-							catch (Exception e)  {
-							
-								System.out.println("Company Already Exists! chose a different name!"); 
-
-							}
-							companyDBDAO.insertCompany(company);
-							System.out.println("the company created");
-						}
-					}
-				}
 			
-	}}}
+					try {
+						companyDBDAO.insertCompany(company);
+						System.out.println("the company created");
+					}
+					catch (Exception e)  {
+						System.out.println(e);
+					}
+//					companyDBDAO.insertCompany(company);
+//					System.out.println("the company created");
+				}
+			}
+		}
+
+	}
 	
 	public void removeCompany(Company company) throws Exception {
-			companyDBDAO.removeCompany(company);
-			company_CouponDBDao.removeCompany_Coupon(company);
-	//		customer_CouponDBDao.removebyCouponCustomer(coupon);
+		
+		CompanyFacade companyFacade = new CompanyFacade();
+		long compid=company.getId();
+		List<Long> companycoupon= company_CouponDBDao.getCouponsByCompanyId(compid);
+		System.out.println(companycoupon);
+	
+		for (Long id : companycoupon) {
+			System.out.println(id);
+		//	customerDBDAO.removeAllPurchasedCustomerCoupons(id);
+		
+		}
+			
+			//company_CouponDBDao.removeCompany_Coupon(company);
+			//companyDBDAO.removeCompany(company);
 		}
 
 		public void removeCoupons(Coupon coupon) throws Exception {
@@ -98,14 +109,14 @@ public class AdminFacade implements Client {
 
 	
 		public void getCompany(Company company) throws Exception {
-		 System.out.println(company);
+			System.out.println(company);
 		}
 
 		
-		public Set<Company> getAllCompanys() throws Exception {
-			//*this method calling getallcompany from caompnyDBDAO
+		public Collection <Company> getAllCompanys() throws Exception {
+			//*this method calling get all company from caompnyDBDAO
 
-			return companyDBDAO.getAllCompany();
+			return companyDBDAO.getAllCompanys();
 
 		}
 		
@@ -117,40 +128,35 @@ public class AdminFacade implements Client {
 		
 		public void insertCustomer(Customer customer) throws Exception {
 			//*this method calling insert customer from CustomerDBDAO
-			if (customer != null) {
-
-				String custName = customer.getCustName();
-
-				if (custName != null) {
-
-					if (customer.getPassword() != null) {
-
-						if (!customerDBDAO.ifCustomerNameExists(custName)) {
-
+			String custName = customer.getCustName();
+				if (custName != null && customer.getPassword() != null && customer != null) {
+						
+			boolean bool = customerDBDAO.ifCustomerNameExists(customer);
+				
+			if (bool==false) {
 							try {
-
-								customerDBDAO.insertCustomer(customer);
-
+							customerDBDAO.insertCustomer(customer);
+							
 							} catch (Exception e) {
 								System.out.println("The customer is exists! chose different name!");
-								
-							}
-			
-													}
 										}
-							}
+						}
+						else {
+							System.out.println("The customer is exists! chose different name!");
+						}
 			}
-		}
+	}
+		
 
 
 
 		public void removeCustomer(Customer temp) throws Exception{
 			Customer cus= new Customer();
 			cus= customerDBDAO.getCustomer(temp);
-			long id= temp.getId();
-			System.out.println(temp);
-//			customerDBDAO.removeCustomerById(id);
-//			customerDBDAO.removeAllPurchasedCustomerCoupons(id);
+			long id= cus.getId();
+		//	customerDBDAO.removeAllPurchasedCustomerCoupons(id);
+			customerDBDAO.removeCustomerById(id);
+			
 		}
 
 
@@ -170,12 +176,10 @@ public class AdminFacade implements Client {
 
 
 		public void getCustomerDetails (Customer temp) throws Exception {
-			
 			Customer customer= new Customer();
 			customer= customerDBDAO.getCustomer(temp);
 			System.out.println(customer);
 		
-
 		}
 
 
@@ -187,15 +191,15 @@ public class AdminFacade implements Client {
 
 		}
 
-
-		@Override
-		public void login(String user, String password, ClientType clienttype) {
-			// TODO Auto-generated method stub
+	@Override
+		public Client login(String user, String password, ClientType clienttype) {
+			return null;
+		
 			
 		}
-		
+}		
 	
-}
+
 
 
 

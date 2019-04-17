@@ -7,7 +7,6 @@ import Company.Company;
 import Coupon.Coupon;
 
 public interface Company_CouponDao {
-	
 
 	void insertCompany_Coupon(Company company, Coupon coupon) throws Exception;
 

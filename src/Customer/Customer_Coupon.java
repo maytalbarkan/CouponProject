@@ -6,7 +6,6 @@ public class Customer_Coupon {
 	private long custId;
 	private long couponId;
 	
-
 	public Customer_Coupon(long custId, long couponId) {
 		super();
 		this.custId = custId;

@@ -5,8 +5,7 @@ public class Company_Coupon
 	private long companyId;
 	private long couponId;
 	
-	public Company_Coupon() {
-		
+	public Company_Coupon() {		
 	}
 
 	public Company_Coupon(long companyId, long couponId) {

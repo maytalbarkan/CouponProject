@@ -15,7 +15,6 @@ import Exception.CouponException;
  * 
  * this class controls and manage all the connections, because of that this
  * class is a singleton
- * 
  * maxConnection int: the number of connections and its final number
  * 
  */
@@ -85,17 +84,11 @@ public class ConnectionPool {
 	public static ConnectionPool getInstance() throws CouponException {
 
 		if (instance == null) {
-
 			try {
-
 				instance = new ConnectionPool();
 
 			} catch (SQLException e) {
-
-				// TODO Auto-generated catch block
-
 				e.printStackTrace();
-
 			}
 
 		}

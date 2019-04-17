@@ -7,7 +7,6 @@ package Company;
  * @author Maytal 
 
  *
-
  */
 public class Company
 {
