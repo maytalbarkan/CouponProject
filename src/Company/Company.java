@@ -25,10 +25,10 @@ public Company() {
  */
 	
 	public Company(long id, String comp_Name, String password, String email) {
-		this.id = id;
-		this.comp_Name = comp_Name;
-		this.password = password;
-		this.email = email;
+		setId(id);
+		setComp_Name(comp_Name);
+		setPassword(password);
+		setEmail(email);
 	}
 
 	/**

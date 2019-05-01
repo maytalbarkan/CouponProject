@@ -18,7 +18,6 @@ public class CouponSystem {
 	private	static Thread thread;
 
 	
-	
 	private CouponSystem(ThreadsDailyExpiredCoupons dailyTask, Thread thread, Connection connection) {
 		DailyTask = new ThreadsDailyExpiredCoupons();
 		thread = new Thread(DailyTask);
@@ -29,6 +28,7 @@ public class CouponSystem {
 		if (instance == null) {
 			try {
 				instance = new CouponSystem(DailyTask, thread, null);
+				System.out.println("CouponSystem start");
 
 			} catch (Exception e) {
 				e.printStackTrace();

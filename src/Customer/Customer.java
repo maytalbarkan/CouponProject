@@ -22,15 +22,15 @@ public class Customer
 	
 	
 	public Customer(long id, String custName, String password) {
-		this.id = id;
-		this.custName = custName;
-		this.password = password;
+		setId(id);
+		setCustName(custName);
+		setPassword(password);
 	}
 	//* full cTor for the customer 
 	
 	public Customer(String custName, String password) {
-		this.custName = custName;
-		this.password = password;
+		setCustName(custName);
+		setPassword(password);
 	}
 
 	public long getId() {

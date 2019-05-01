@@ -9,9 +9,8 @@ public class Company_Coupon
 	}
 
 	public Company_Coupon(long companyId, long couponId) {
-		super();
-		this.companyId = companyId;
-		this.couponId = couponId;
+		setCompanyId(companyId);
+		setCouponId(couponId);
 	}
 
 	public long getCompanyId() {

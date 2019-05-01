@@ -12,6 +12,7 @@ import java.util.List;
 
 import Coupon.Coupon;
 import Coupon.CouponDBDAO;
+import Exception.CompanyException;
 import Main.ConnectionPool;
 import Main.Database;
 
@@ -25,30 +26,30 @@ public class Company_CouponDBDao implements Company_CouponDao {
 	
 	@Override
 	//this method insert values to company_coupon table
-	public void insertCompany_Coupon(Company company, Coupon coupon) throws Exception {
+	public void insertCompany_Coupon(Company company, Coupon coupon) throws CompanyException {
 
 		Connection con;
 		// Open a connection from the connection pool class
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 		} catch (Exception e) {
-			throw new Exception("The Connection is faild");
+			throw new CompanyException("The Connection is faild");
 		}
 		// Define the Execute query
 		String sql = "insert into Company_Coupon (Company_ID, Coupon_ID) values (?,?)";
 		PreparedStatement pstmt = null;
-		pstmt = con.prepareStatement(sql);
-		
-		con = DriverManager.getConnection(Database.getDBUrl());
+	
 		
 		try  {
+			pstmt = con.prepareStatement(sql);
+			con = DriverManager.getConnection(Database.getDBUrl());
 			pstmt.setLong(1, company.getId());
 			pstmt.setLong(2, coupon.getID());
 			pstmt.executeUpdate();
 			
 			System.out.println("Company_Coupon added. companyId: " + company.getId() + " couponId: " + coupon.getID());
 		} catch (SQLException e) {
-			throw new Exception(
+			throw new CompanyException(
 					"Company_Coupon addition failed. companyId: " + company.getId() + " couponId: " + coupon.getID());
 		} finally {// finally block used to close resources
 			try {
@@ -56,21 +57,21 @@ public class Company_CouponDBDao implements Company_CouponDao {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CompanyException("The close connection action faild");
 			}
 			try {
 				if (con != null) {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CompanyException("The close connection action faild");
 			}
 		}
 	
 	}
 
 	@Override
-	public void removeCompany_Coupon(Company company) throws Exception {
+	public void removeCompany_Coupon(Company company) throws CompanyException {
 
 		Connection con;
 		
@@ -78,17 +79,14 @@ public class Company_CouponDBDao implements Company_CouponDao {
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 		} catch (Exception e) {
-			throw new Exception("The Connection is faild");
+			throw new CompanyException("The Connection is faild");
 		}
 		// Define the Execute query
-
 		String remove = "DELETE FROM Company_Coupon WHERE company_ID=?";
 		PreparedStatement pstmt = null;
-		pstmt = con.prepareStatement(remove);
-	
 
 		try (PreparedStatement pstm1 = con.prepareStatement(remove);) {
-
+			pstmt = con.prepareStatement(remove);
 			con.setAutoCommit(false);
 			pstm1.setLong(1, company.getId());
 			pstm1.executeUpdate();
@@ -102,30 +100,30 @@ public class Company_CouponDBDao implements Company_CouponDao {
 				con.rollback();
 			} catch (SQLException e1) {
 
-				throw new Exception("Database error");
+				throw new CompanyException("Database error");
 			}
 
-			throw new Exception("failed to remove coupon");
+			throw new CompanyException("failed to remove coupon");
 		} finally {// finally block used to close resources
 			try {
 				if (pstmt != null) {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CompanyException("The close connection action faild");
 			}
 			try {
 				if (con != null) {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CompanyException("The close connection action faild");
 			}
 
 		}
 	}
 
-	public void removeCoupons(Coupon coupon) throws Exception{
+	public void removeCoupons(Coupon coupon) throws CompanyException{
 		
 		Connection con;
 		
@@ -133,16 +131,15 @@ public class Company_CouponDBDao implements Company_CouponDao {
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 		} catch (Exception e) {
-			throw new Exception("The Connection is faild");
+			throw new CompanyException("The Connection is faild");
 		}
 		// Define the Execute query
 
 		String remove = "DELETE FROM Coupon WHERE id=?";
 		PreparedStatement pstmt = null;
-		pstmt = con.prepareStatement(remove);
-		
+	
 		try  {
-
+			pstmt = con.prepareStatement(remove);
 			con.setAutoCommit(false);
 			pstmt.setLong(1, coupon.getID());
 			pstmt.executeUpdate();
@@ -156,24 +153,24 @@ public class Company_CouponDBDao implements Company_CouponDao {
 				con.rollback();
 			} catch (SQLException e1) {
 
-				throw new Exception("Database error");
+				throw new CompanyException("Database error");
 			}
 
-			throw new Exception("failed to remove coupon");
+			throw new CompanyException("failed to remove coupon");
 		} finally {// finally block used to close resources
 			try {
 				if (pstmt != null) {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CompanyException("The close connection action faild");
 			}
 			try {
 				if (con != null) {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CompanyException("The close connection action faild");
 			}
 		}
 		
@@ -181,22 +178,22 @@ public class Company_CouponDBDao implements Company_CouponDao {
 	
 	// this method return the last coupon ID
 	@SuppressWarnings("finally")
-	public long getMaxCouponId() throws Exception {
+	public long getMaxCouponId() throws CompanyException {
 		Connection con;
 		
 		// Open a connection from the connection pool class
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 		} catch (Exception e) {
-			throw new Exception("The Connection is faild");
+			throw new CompanyException("The Connection is faild");
 		}
 		// Define the Execute query
 		String sql = "SELECT MAX(ID) FROM COUPON";
 		PreparedStatement pstmt = null;
-		pstmt = con.prepareStatement(sql);
+	
 		long result = 0;
 		try (Statement pstt = con.createStatement()){
-
+			pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstt.executeQuery(sql);
 			if (rs.next())
 			{
@@ -213,21 +210,21 @@ public class Company_CouponDBDao implements Company_CouponDao {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CompanyException("The close connection action faild");
 			}
 			try {
 				if (con != null) {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CompanyException("The close connection action faild");
 			}
 
 			return result;
 	}}
 
 	
-	public List<Long>  getCouponsByCompanyId(long compid) throws Exception {
+	public List<Long>  getCouponsByCompanyId(long compid) throws CompanyException {
 
 		Connection con;
 		
@@ -235,17 +232,17 @@ public class Company_CouponDBDao implements Company_CouponDao {
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 		} catch (Exception e) {
-			throw new Exception("The Connection is faild");
+			throw new CompanyException("The Connection is faild");
 		}
 		// Define the Execute query
 		String sql = "SELECT * FROM COMPANY_COUPON where COMPANY_ID=" + compid;
 		PreparedStatement pstmt = null;
-		pstmt = con.prepareStatement(sql);
+	
 		
 			List<Long> listComanyCoupon = new ArrayList<Long>();
 			
 			try  {
-				
+				pstmt = con.prepareStatement(sql);
 				Statement statement = con.createStatement();
 				ResultSet rs = statement.executeQuery(sql);
 
@@ -259,7 +256,7 @@ public class Company_CouponDBDao implements Company_CouponDao {
 
 	} catch (SQLException e) {
 
-		throw new Exception();
+		throw new CompanyException("something want worng");
 
 	} finally {// finally block used to close resources
 		try {
@@ -267,14 +264,14 @@ public class Company_CouponDBDao implements Company_CouponDao {
 				ConnectionPool.getInstance().returnConnection(con);
 			}
 		} catch (Exception e) {
-			throw new Exception("The close connection action faild");
+			throw new CompanyException("The close connection action faild");
 		}
 		try {
 			if (con != null) {
 				ConnectionPool.getInstance().returnConnection(con);
 			}
 		} catch (Exception e) {
-			throw new Exception("The close connection action faild");
+			throw new CompanyException("The close connection action faild");
 		}
 	}
 

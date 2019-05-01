@@ -7,9 +7,8 @@ public class Customer_Coupon {
 	private long couponId;
 	
 	public Customer_Coupon(long custId, long couponId) {
-		super();
-		this.custId = custId;
-		this.couponId = couponId;
+		setCustId(custId);
+		setCouponId(couponId);
 	}
 	
 	public Customer_Coupon() {

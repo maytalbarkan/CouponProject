@@ -19,26 +19,26 @@ public class Coupon
 		}
 		
 		public Coupon (long ID,String title,Date start_date, Date end_date, int amount,CouponType type,String message,double price,String image){
-			this.ID = ID;
-			this.title = title;
-			this.start_date = start_date;
-			this.end_date = end_date;
-			this.amount = amount;
-			this.type = type;
-			this.message = message;
-			this.price = price;
-			this.image = image;
+			setID(ID);
+			setTitle(title);
+			setStart_date(start_date);
+			setEnd_date(end_date);
+			setAmount(amount);
+			setType(type);
+			setMessage(message);
+			setPrice(price);
+			setImage(image);
 		}
 		
 		public Coupon (String title,Date start_date, Date end_date, int amount,CouponType type,String message,double price, String image){
-			this.title = title;
-			this.start_date = start_date;
-			this.end_date = end_date;
-			this.amount = amount;
-			this.type = type;
-			this.message = message;
-			this.price = price;
-			this.image = image;
+			setTitle(title);
+			setStart_date(start_date);
+			setEnd_date(end_date);
+			setAmount(amount);
+			setType(type);
+			setMessage(message);
+			setPrice(price);
+			setImage(image);
 		}
 		public long getID() {
 			return ID;
