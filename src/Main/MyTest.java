@@ -137,7 +137,7 @@ Coupon coupon11= new Coupon("winter Sale", Utils.getCurrentDate(), Utils.getExpi
 //*************************************************************************
 //	COMPANY FACADE
 //	companyFacade.insertCoupon(coupon3, company8);
-	companyFacade.removeCoupons(coupon1);
+//	companyFacade.removeCoupons(coupon1);
 //	companyFacade.updateCoupon(coupon1, Utils.getExpiredDate(), 2222);
 //	companyFacade.getDetails(company6);
 //	System.out.println(companyFacade.getAllCompanyCoupon(company1));
