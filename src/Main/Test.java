@@ -18,7 +18,7 @@ public class Test {
 
 //		UserTest.adminTestStart();
 //		UserTest.companyTestStart();
-		//		UserTest.customerTest();
+//		UserTest.customerTest();
 		
 //		UserTest.adminTestUpdates();
 //		usersTest.companyTestUpdates();
