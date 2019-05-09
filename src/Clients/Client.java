@@ -8,7 +8,7 @@ public interface Client
 	 * the enum ClientType describe which client types are available
 	 */
 	
-	ClientType clientType = null;
+	ClientType clientType= null;
 	
 	public Client login (String user, String password, ClientType clienttype);
 

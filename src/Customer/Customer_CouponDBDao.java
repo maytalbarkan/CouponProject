@@ -1,7 +1,6 @@
 package Customer;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,13 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Company.Company;
 import Company.Company_CouponDBDao;
 import Coupon.Coupon;
 import Coupon.CouponDBDAO;
-import Exception.CouponException;
+import Exception.CustomrException;
 import Main.ConnectionPool;
-import Main.Database;
 
 public class Customer_CouponDBDao implements Customer_CouponDao {
 
@@ -25,7 +22,7 @@ public class Customer_CouponDBDao implements Customer_CouponDao {
 	
 	private static Connection con;
 	@Override
-	public void insertCustomer_Coupon(long cutomerid, long couponid) throws Exception {
+	public void insertCustomer_Coupon(long cutomerid, long couponid) throws CustomrException {
 
 		Connection con;
 		
@@ -33,15 +30,15 @@ public class Customer_CouponDBDao implements Customer_CouponDao {
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 		} catch (Exception e) {
-			throw new Exception("The Connection is faild");
+			throw new CustomrException("The Connection is faild");
 		}
 		// Define the Execute query
 		String sql = "insert into Customer_Coupon (Customer_ID, Coupon_ID) values (?,?)";
 		PreparedStatement pstmt = null;
-		pstmt = con.prepareStatement(sql);
+
 
 		try  {
-
+			pstmt = con.prepareStatement(sql);
 			pstmt.setLong(1, cutomerid);
 			pstmt.setLong(2, couponid);
 			
@@ -50,9 +47,9 @@ public class Customer_CouponDBDao implements Customer_CouponDao {
 			System.out.println("Customer_Coupon added.  CustomerId: " + cutomerid + " couponId: " + couponid);
 		
 		}catch (SQLException e) {
-			throw new Exception("DB error -  Customer_Coupon addition failed. companyId: " + cutomerid + " couponId: " + couponid);
+			throw new CustomrException("DB error -  Customer_Coupon addition failed. companyId: " + cutomerid + " couponId: " + couponid);
 		}catch (Exception e) {
-			throw new Exception(" Customer_Coupon addition failed.  CustomerId: " +cutomerid + " couponId: " + couponid);
+			throw new CustomrException(" Customer_Coupon addition failed.  CustomerId: " +cutomerid + " couponId: " + couponid);
 		
 		}finally {// finally block used to close resources
 				try {
@@ -60,19 +57,19 @@ public class Customer_CouponDBDao implements Customer_CouponDao {
 						ConnectionPool.getInstance().returnConnection(con);
 					}
 				} catch (Exception e) {
-					throw new Exception("The close connection action faild");
+					throw new CustomrException("The close connection action faild");
 				}
 				try {
 					if (con != null) {
 						ConnectionPool.getInstance().returnConnection(con);
 					}
 				} catch (Exception e) {
-					throw new Exception("The close connection action faild");
+					throw new CustomrException("The close connection action faild");
 				}
 		}
 	}
 	
-	public void removebyCustomerCoupon(Customer customer) throws Exception {
+	public void removebyCustomerCoupon(Customer customer) throws CustomrException {
 
 		Connection con;
 		
@@ -80,16 +77,16 @@ public class Customer_CouponDBDao implements Customer_CouponDao {
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 		} catch (Exception e) {
-			throw new Exception("The Connection is faild");
+			throw new CustomrException("The Connection is faild");
 		}
 		// Define the Execute query
 		String remove = "DELETE FROM Customer_Coupon WHERE customer_id=?";
 		PreparedStatement pstmt = null;
-		pstmt = con.prepareStatement(remove);
+		
 
 		
 		try (PreparedStatement pstm1 = con.prepareStatement(remove);) {
-
+			pstmt = con.prepareStatement(remove);
 			con.setAutoCommit(false);
 			pstm1.setLong(1,customer.getId());
 			pstm1.executeUpdate();
@@ -103,45 +100,45 @@ public class Customer_CouponDBDao implements Customer_CouponDao {
 				con.rollback();
 			} catch (SQLException e1) {
 
-				throw new Exception("Database error");
+				throw new CustomrException("Database error");
 			}
 
-			throw new Exception("failed to remove coupon");
+			throw new CustomrException("failed to remove coupon");
 		} finally {// finally block used to close resources
 			try {
 				if (pstmt != null) {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CustomrException("The close connection action faild");
 			}
 			try {
 				if (con != null) {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CustomrException("The close connection action faild");
 			}}
 
 	
 	}
 	
-	public void removebyCouponCustomer(Coupon coupon) throws Exception {
+	public void removebyCouponCustomer(Coupon coupon) throws CustomrException {
 		Connection con;
 		
 		// Open a connection from the connection pool class
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 		} catch (Exception e) {
-			throw new Exception("The Connection is faild");
+			throw new CustomrException("The Connection is faild");
 		}
 		// Define the Execute query
 		String remove = "DELETE FROM Customer_Coupon WHERE coupon_id=?";
 		PreparedStatement pstmt = null;
-		pstmt = con.prepareStatement(remove);
+
 		
 		try (PreparedStatement pstm1 = con.prepareStatement(remove);) {
-
+			pstmt = con.prepareStatement(remove);
 			con.setAutoCommit(false);
 			pstm1.setLong(1,coupon.getID());
 			pstm1.executeUpdate();
@@ -155,10 +152,10 @@ public class Customer_CouponDBDao implements Customer_CouponDao {
 				con.rollback();
 			} catch (SQLException e1) {
 
-				throw new Exception("Database error");
+				throw new CustomrException("Database error");
 			}
 
-			throw new Exception("failed to remove coupon");
+			throw new CustomrException("failed to remove coupon");
 		} finally {
 			// finally block used to close resources
 			try {
@@ -166,14 +163,14 @@ public class Customer_CouponDBDao implements Customer_CouponDao {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CustomrException("The close connection action faild");
 			}
 			try {
 				if (con != null) {
 					ConnectionPool.getInstance().returnConnection(con);
 				}
 			} catch (Exception e) {
-				throw new Exception("The close connection action faild");
+				throw new CustomrException("The close connection action faild");
 			}
 
 		}

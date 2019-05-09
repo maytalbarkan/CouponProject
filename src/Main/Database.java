@@ -266,7 +266,7 @@ import java.sql.Statement;
 			}
 		}
 		
-		public static void dropcreateExpiredCouponTable() throws Exception{
+		public static void  dropExpiredCouponTable() throws Exception{
 			connection = DriverManager.getConnection(Database.getDBUrl());
 
 			String sql = "drop table ExpiredCoupon";
@@ -283,6 +283,7 @@ import java.sql.Statement;
 				connection.close();
 		}
 		
-	}
+	
+		}
 	}
 

@@ -1,13 +1,14 @@
 package Main;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import Clients.AdminFacade;
 import Clients.Client;
 import Clients.ClientType;
 import Clients.CompanyFacade;
 import Clients.CustomerFacade;
+import Company.CompanyDBDAO;
+import Customer.CustomerDBDAO;
 import Exception.CouponException;
 import Threads.ThreadsDailyExpiredCoupons;
 
@@ -17,7 +18,6 @@ public class CouponSystem {
 	private static ThreadsDailyExpiredCoupons DailyTask;
 	private	static Thread thread;
 
-	
 	
 	private CouponSystem(ThreadsDailyExpiredCoupons dailyTask, Thread thread, Connection connection) {
 		DailyTask = new ThreadsDailyExpiredCoupons();
@@ -29,6 +29,7 @@ public class CouponSystem {
 		if (instance == null) {
 			try {
 				instance = new CouponSystem(DailyTask, thread, null);
+				System.out.println("CouponSystem start");
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -42,29 +43,55 @@ public class CouponSystem {
 
 	public static Client login(String name, String password, ClientType clientType) throws Exception {
 
-		Client client = null;
+		Client client =  null;
 
 		switch (clientType) {
 
 		case ADMIN:
+			if(name == "admin"&& password=="1234") {
 			client = new AdminFacade();
+			}
 			break;
 
 		case COMPANY:
+			
+			if (clientType == ClientType.COMPANY) {
+				CompanyDBDAO localcompanydbdao = new CompanyDBDAO();
+				boolean loginSuccess = localcompanydbdao.login(name, password);
+				if(loginSuccess) {
 			client = new CompanyFacade();
+				}}
 			break;
 
 		case CUSTOMER:
-			client = new CustomerFacade();
-			break;
+		
+			if (clientType == ClientType.CUSTOMER) {
+				
+				CustomerDBDAO customerDBDAO = new CustomerDBDAO();
+				boolean loginSuccess = customerDBDAO.login(name, password);
+				if(loginSuccess) {
+				client = new CustomerFacade();
+				}}
+				break;
 
 		default:
 			throw new CouponException("login failed");
+			
 		}
-
-		client = client.login(name, password, clientType);
+	
+//		client = client.login(name, password, clientType);
+//		System.out.println(name);
+//		System.out.println(password);
+//		System.out.println(clientType);
+//	System.out.println(111111);
+//		System.out.println(client);
 		
-		return null;
+		if(client==null) {
+			
+			throw new CouponException("Login failed! incorect password");
+		}else {
+			return client;
+		}
 	}
 	
 	

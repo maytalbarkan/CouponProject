@@ -13,7 +13,7 @@ import Main.Utils;
 public class ThreadsDailyExpiredCoupons implements Runnable {
 	private boolean quit = false;
 	private LocalDate now = LocalDate.now();
-	private static int SECONDS = 10000*60*24*60;
+	private static int SECONDS = 10000*60;
 	private CouponDBDAO couponDBDao = new CouponDBDAO();
 	
 	public void DailyExpiredCoupons() throws Exception {

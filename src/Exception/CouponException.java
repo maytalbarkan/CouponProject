@@ -2,13 +2,21 @@ package Exception;
 
 public class CouponException extends Exception{
 
+	private static final long serialVersionUID = 1L;
+	
 	public CouponException() {
 		
 	}
-	public CouponException(String string) 
-	{
-		System.out.println("failed");
-		// TODO Auto-generated constructor stub
+		/**
+
+		 * CouponException method.
+
+		 */
+
+		public CouponException(String message) {
+
+			super(message);
+
+		}
 	}
 	
-}
