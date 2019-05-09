@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 import Exception.CompanyException;
+import Exception.LogingException;
 import Main.ConnectionPool;
 import Main.Database;
 
@@ -339,8 +340,51 @@ public class CompanyDBDAO implements CompanyDao {
 			company.setEmail(result.getString("EMAIL"));
 			return company;
 		}	
+		
+		@SuppressWarnings("finally")
+		public boolean login(String compName, String password) throws LogingException, SQLException {
+			
+			// Open a connection from the connection pool class
+				try {
+							con = ConnectionPool.getInstance().getConnection();
+				} catch (Exception e) {
+					throw new LogingException("The Connection is faild");
+				}
+			// Define the Execute query
+			boolean loginSuccess  = false;
+			
+			
+				String query = "SELECT * FROM Company WHERE COMP_NAME=? AND PASSWORD=?";
+				PreparedStatement pstmt = con.prepareStatement(query);
+			try {
+				pstmt.setString(1, compName);
+				pstmt.setString(2, password);
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+				loginSuccess = true;
+			}
+			
+		} catch (Exception e) {
+			throw new LogingException("logging is failed!");
+		} finally {// finally block used to close resources
+			try {
+				if (pstmt != null) {
+					ConnectionPool.getInstance().returnConnection(con);
+				}
+			} catch (Exception e) {
+				throw new LogingException("The close connection action faild");
+			}
+			try {
+				if (con != null) {
+					ConnectionPool.getInstance().returnConnection(con);
+				}
+			} catch (Exception e) {
+				throw new LogingException("The close connection action faild");
+			}
+			return loginSuccess;
+		}
 
 		
 		}
-
+}
 

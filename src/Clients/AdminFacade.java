@@ -50,6 +50,16 @@ public class AdminFacade implements Client {
 	}
 
 	
+	public static String getAdminusername() {
+		return adminUserName;
+	}
+
+
+	public static String getAdminpassword() {
+		return adminPassword;
+	}
+
+
 	//****************************************************************************************************
 	//COMPANY METHODS
 	public void insertCompany(Company company) throws Exception {
